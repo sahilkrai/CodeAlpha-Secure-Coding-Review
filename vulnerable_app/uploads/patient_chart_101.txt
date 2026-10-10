@@ -1,0 +1,4 @@
+Patient ID: 101
+Blood Pressure: 120/80 mmHg
+Pulse: 72 bpm
+Summary: Regular annual checkup routine notes.

@@ -1,0 +1,149 @@
+Run started:2026-10-10 07:36:21.364038+00:00
+
+Test results:
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: vulnerable_app/app.py:11:0
+10	import jwt
+11	import subprocess
+12	import pickle
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: vulnerable_app/app.py:12:0
+11	import subprocess
+12	import pickle
+13	import base64
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'medivault-super-secret-key-2024'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html
+   Location: vulnerable_app/app.py:20:13
+19	# Bandit: B105 / B106
+20	JWT_SECRET = "medivault-super-secret-key-2024"
+21	app.config['SECRET_KEY'] = "hardcoded_flask_secret_12345"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'hardcoded_flask_secret_12345'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html
+   Location: vulnerable_app/app.py:21:11
+20	JWT_SECRET = "medivault-super-secret-key-2024"
+21	app.config['SECRET_KEY'] = "hardcoded_flask_secret_12345"
+22	
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: vulnerable_app/app.py:56:21
+55	        # VULNERABILITY: Insecure Weak Hash Algorithm (MD5 without Salt) (CWE-328)
+56	        admin_pass = hashlib.md5("Admin@123".encode()).hexdigest()
+57	        alice_pass = hashlib.md5("AlicePass!".encode()).hexdigest()
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: vulnerable_app/app.py:57:21
+56	        admin_pass = hashlib.md5("Admin@123".encode()).hexdigest()
+57	        alice_pass = hashlib.md5("AlicePass!".encode()).hexdigest()
+58	        bob_pass = hashlib.md5("BobPassword99".encode()).hexdigest()
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: vulnerable_app/app.py:58:19
+57	        alice_pass = hashlib.md5("AlicePass!".encode()).hexdigest()
+58	        bob_pass = hashlib.md5("BobPassword99".encode()).hexdigest()
+59	
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html
+   Location: vulnerable_app/app.py:91:14
+90	    # VULNERABILITY: Insecure MD5 Hash Comparison (CWE-328)
+91	    pw_hash = hashlib.md5(password.encode()).hexdigest()
+92	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: vulnerable_app/app.py:139:12
+138	    # Bandit: B608
+139	    sql = f"SELECT id, username, email, role FROM users WHERE username LIKE '%{search_query}%'"
+140	    
+
+--------------------------------------------------
+>> Issue: [B602:subprocess_popen_with_shell_equals_true] subprocess call with shell=True identified, security issue.
+   Severity: High   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b602_subprocess_popen_with_shell_equals_true.html
+   Location: vulnerable_app/app.py:221:17
+220	    try:
+221	        output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT, text=True)
+222	        return jsonify({"output": output}), 200
+
+--------------------------------------------------
+>> Issue: [B301:blacklist] Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.
+   Severity: Medium   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b301-pickle
+   Location: vulnerable_app/app.py:239:16
+238	        raw_bytes = base64.b64decode(b64_payload)
+239	        prefs = pickle.loads(raw_bytes)
+240	        return jsonify({"message": "Preferences imported successfully", "preferences": str(prefs)}), 200
+
+--------------------------------------------------
+>> Issue: [B201:flask_debug_true] A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.
+   Severity: High   Confidence: Medium
+   CWE: CWE-94 (https://cwe.mitre.org/data/definitions/94.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b201_flask_debug_true.html
+   Location: vulnerable_app/app.py:270:4
+269	    # Bandit: B201
+270	    app.run(host='0.0.0.0', port=5000, debug=True)
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: vulnerable_app/app.py:270:17
+269	    # Bandit: B201
+270	    app.run(host='0.0.0.0', port=5000, debug=True)
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 193
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 4
+		Medium: 3
+		High: 6
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 4
+		High: 8
+Files skipped (0):
